@@ -20,6 +20,8 @@ $(".btn").click(function() {
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
 
+  // console.log(userClickedPattern);
+
   playSound(userChosenColour);
   animatePress(userChosenColour);
 
@@ -48,16 +50,23 @@ function checkAnswer(currentLevel) {
 }
 
 
+// function, which give a random value from 0-3
+// based on that it gives me the color corresponding to the random value(from buttonColor array)
 function nextSequence() {
   userClickedPattern = [];
   level++;
   $("#level-title").text("Level " + level);
   var randomNumber = Math.floor(Math.random() * 4);
+  // console.log(randomNumber);
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
-
   $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
   playSound(randomChosenColour);
+}
+// function for playing audio
+function playSound(name) {
+  var audio = new Audio("sounds/" + name + ".mp3");
+  audio.play();
 }
 
 function animatePress(currentColor) {
@@ -67,10 +76,6 @@ function animatePress(currentColor) {
   }, 100);
 }
 
-function playSound(name) {
-  var audio = new Audio("sounds/" + name + ".mp3");
-  audio.play();
-}
 
 function startOver() {
   level = 0;
